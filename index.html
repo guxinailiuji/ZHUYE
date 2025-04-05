@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>专业金融投资分析平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/lucide-react@latest/dist/umd/lucide-react.min.js" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .blink-effect {
+            animation: blink 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+    <!-- Prevent zooming -->
+    <script>
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+    </script>
+
+    <!-- Header -->
+    <header class="bg-blue-100 text-blue-900 py-4 px-6 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 8L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 8L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <h1 class="text-xl font-bold font-geist-mono">反关财经 by不霁何虹</h1>
+            </div>
+            <div class="flex items-center">
+                <nav class="hidden md:flex space-x-6 mr-6">
+                    <a href="#areas" class="hover:text-blue-700 transition-colors font-medium">涵盖领域</a>
+                    <a href="#quantitative" class="hover:text-blue-700 transition-colors">量化</a>
+                    <a href="#monitoring" class="hover:text-blue-700 transition-colors">监控</a>
+                    <a href="#research" class="hover:text-blue-700 transition-colors">投研</a>
+                </nav>
+                <div class="hidden md:flex items-center space-x-3">
+                    <span class="text-sm font-medium">关注我们：</span>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="B站">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.8 4.5L16 2H8L6.2 4.5H3C1.9 4.5 1 5.4 1 6.5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V6.5C23 5.4 22.1 4.5 21 4.5H17.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 13V11H15V13H9Z" fill="currentColor"/>
+                            <path d="M9 17V15H15V17H9Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="油管">
+                        <i data-lucide="youtube" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="推特">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="微博">
+                        <i data-lucide="at-sign" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="抖音">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 8V16C21 19.3137 18.3137 22 15 22H9C5.68629 22 3 19.3137 3 16V8C3 4.68629 5.68629 2 9 2H15C18.3137 2 21 4.68629 21 8Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 16C10.3431 16 9 14.6569 9 13C9 11.3431 10.3431 10 12 10C13.6569 10 15 11.3431 15 13C15 14.6569 13.6569 16 12 16Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M15 7H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="快手">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M15 9L13 12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M9 9L11 12L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="小红书">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                            <path d="M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M12 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden px-6 py-4 md:hidden">
+            <nav class="flex flex-col space-y-3 mb-4">
+                <a href="#areas" class="hover:text-blue-700 transition-colors font-medium">涵盖领域</a>
+                <a href="#quantitative" class="hover:text-blue-700 transition-colors">量化</a>
+                <a href="#monitoring" class="hover:text-blue-700 transition-colors">监控</a>
+                <a href="#research" class="hover:text-blue-700 transition-colors">投研</a>
+            </nav>
+            <div class="flex flex-wrap gap-4">
+                <span class="text-sm font-medium">关注我们：</span>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="B站">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.8 4.5L16 2H8L6.2 4.5H3C1.9 4.5 1 5.4 1 6.5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V6.5C23 5.4 22.1 4.5 21 4.5H17.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 13V11H15V13H9Z" fill="currentColor"/>
+                        <path d="M9 17V15H15V17H9Z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="油管">
+                    <i data-lucide="youtube" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="推特">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="微博">
+                    <i data-lucide="at-sign" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="抖音">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 8V16C21 19.3137 18.3137 22 15 22H9C5.68629 22 3 19.3137 3 16V8C3 4.68629 5.68629 2 9 2H15C18.3137 2 21 4.68629 21 8Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 16C10.3431 16 9 14.6569 9 13C9 11.3431 10.3431 10 12 10C13.6569 10 15 11.3431 15 13C15 14.6569 13.6569 16 12 16Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M15 7H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="快手">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M15 9L13 12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 9L11 12L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <a href="#" class="text-blue-900 hover:text-blue-700 transition-colors" title="小红书">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main sections -->
+    <main class="flex-grow">
+        <!-- Market Areas Section -->
+        <section id="areas" class="py-16 px-6 bg-white">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold mb-10 font-geist-mono border-b pb-3">
+                    <a href="#areas" class="hover:text-gray-600 transition-colors blink-effect">涵盖领域</a>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Stock Market -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="bg-blue-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">
+                            <a href="#" class="hover:text-blue-600 transition-colors blink-effect">股票</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">覆盖A股、港股和美股市场，提供个股分析、行业研究和投资机会挖掘。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-blue-200 blink-effect">
+                                美股
+                            </a>
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-blue-200 blink-effect">
+                                A股
+                            </a>
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-blue-200 blink-effect">
+                                港股
+                            </a>
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-blue-200 blink-effect">
+                                欧股
+                            </a>
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-blue-200 blink-effect">
+                                亚洲其他市场
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Stock Index -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <div class="bg-green-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-green-800 mb-3">
+                            <a href="#" class="hover:text-green-600 transition-colors blink-effect">股指</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">跟踪全球主要股指走势，分析影响因素，提供指数基金和ETF投资建议。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-green-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-green-200 blink-effect">
+                                美国
+                            </a>
+                            <a href="#" class="text-green-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-green-200 blink-effect">
+                                中国
+                            </a>
+                            <a href="#" class="text-green-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-green-200 blink-effect">
+                                亚太
+                            </a>
+                            <a href="#" class="text-green-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-green-200 blink-effect">
+                                欧洲
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cryptocurrency -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                        <div class="bg-purple-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="bitcoin" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-purple-800 mb-3">
+                            <a href="#" class="hover:text-purple-600 transition-colors blink-effect">加密货币</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">深入分析比特币、以太坊等主流加密货币市场，关注区块链技术发展和投资机会。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-purple-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-purple-200 blink-effect">
+                                一级市场
+                            </a>
+                            <a href="#" class="text-purple-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-purple-200 blink-effect">
+                                二级市场
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Forex -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200">
+                        <div class="bg-yellow-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="currency-dollar" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-yellow-800 mb-3">
+                            <a href="http://waihui.fanguancaijing.xin/" class="hover:text-yellow-600 transition-colors blink-effect">外汇</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">监控全球主要货币对走势，解读央行政策和宏观经济数据对汇率的影响。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="http://waihui.fanguancaijing.xin/" class="text-yellow-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-yellow-200 blink-effect">
+                                外汇
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Futures -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg border border-red-200">
+                        <div class="bg-red-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="move-horizontal" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-red-800 mb-3">
+                            <a href="#" class="hover:text-red-600 transition-colors blink-effect">期货</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">覆盖商品、金融和能源期货市场，提供供需分析、技术面和基本面研究。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-red-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-red-200 blink-effect">
+                                国际期货
+                            </a>
+                            <a href="#" class="text-red-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-red-200 blink-effect">
+                                国内期货
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Trump Tariff Map -->
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg border border-orange-200">
+                        <div class="bg-orange-500 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="map" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-orange-800 mb-3">
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="hover:text-orange-600 transition-colors blink-effect">特朗普关税地图</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">全面追踪特朗普政府关税政策动向，分析对全球贸易和各国经济的影响与投资机会。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="text-orange-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-orange-200 blink-effect">
+                                美国
+                            </a>
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="text-orange-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-orange-200 blink-effect">
+                                中国
+                            </a>
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="text-orange-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-orange-200 blink-effect">
+                                欧盟
+                            </a>
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="text-orange-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-orange-200 blink-effect">
+                                全球影响
+                            </a>
+                            <a href="http://tariff-map.fanguancaijing.xin/" class="text-orange-600 hover:underline flex items-center gap-1 bg-white px-2 py-1 rounded-md text-xs border border-orange-200 blink-effect">
+                                地图
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Card -->
+                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 p-6 rounded-lg border border-gray-300">
+                        <div class="bg-gray-700 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">
+                            <a href="#" class="hover:text-gray-600 transition-colors blink-effect">定制服务</a>
+                        </h3>
+                        <p class="text-gray-700 mb-4">根据您的投资需求提供个性化的市场分析和投资策略咨询服务。</p>
+                        <a href="#" class="text-gray-600 hover:underline flex items-center gap-1 blink-effect">
+                            联系我们
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quantitative Section -->
+        <section id="quantitative" class="py-16 px-6 bg-white">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold mb-10 font-geist-mono border-b pb-3">
+                    <a href="#quantitative" class="hover:text-blue-600 transition-colors blink-effect">量化策略</a>
+                </h2>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <i data-lucide="bar-chart-2" class="w-12 h-12 mb-4 text-blue-600"></i>
+                        <h3 class="text-xl font-bold mb-3">数据驱动</h3>
+                        <p class="text-gray-700 mb-4">我们利用先进的算法和大数据分析，构建稳健的量化交易策略，降低投资风险，提高收益稳定性。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 blink-effect">
+                                基础知识
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 blink-effect">
+                                数据驱动
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <i data-lucide="cpu" class="w-12 h-12 mb-4 text-blue-600"></i>
+                        <h3 class="text-xl font-bold mb-3">算法优化</h3>
+                        <p class="text-gray-700 mb-4">持续优化交易算法，结合机器学习技术，实现全自动化的交易执行和风险控制。</p>
+                        <a href="#" class="text-blue-600 hover:underline flex items-center gap-1 blink-effect">
+                            探索我们的算法
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Section -->
+        <section id="monitoring" class="py-16 px-6 bg-gray-50">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold mb-10 font-geist-mono border-b pb-3">
+                    <a href="#monitoring" class="hover:text-red-500 transition-colors blink-effect">市场监控</a>
+                </h2>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <i data-lucide="activity" class="w-12 h-12 mb-4 text-red-500"></i>
+                        <h3 class="text-xl font-bold mb-3">实时监控</h3>
+                        <p class="text-gray-700 mb-4">24小时不间断监控全球市场动态，捕捉关键价格变动和市场异常，第一时间发出预警信号。</p>
+                        <a href="#" class="text-red-500 hover:underline flex items-center gap-1 blink-effect">
+                            查看监控系统
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="flex-1">
+                        <i data-lucide="bell" class="w-12 h-12 mb-4 text-red-500"></i>
+                        <h3 class="text-xl font-bold mb-3">智能预警</h3>
+                        <p class="text-gray-700 mb-4">基于多维度数据分析的智能预警系统，帮助投资者提前发现风险和机会，做出更明智的决策。</p>
+                        <a href="#" class="text-red-500 hover:underline flex items-center gap-1 blink-effect">
+                            了解预警机制
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="py-16 px-6 bg-white">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold mb-10 font-geist-mono border-b pb-3">
+                    <a href="#research" class="hover:text-purple-600 transition-colors blink-effect">投资研究</a>
+                </h2>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <i data-lucide="search" class="w-12 h-12 mb-4 text-purple-600"></i>
+                        <h3 class="text-xl font-bold mb-3">深度分析</h3>
+                        <p class="text-gray-700 mb-4">由专业分析师团队提供的深度市场研究和投资分析报告，覆盖宏观经济、行业趋势和个股研究。</p>
+                        <a href="#" class="text-purple-600 hover:underline flex items-center gap-1 blink-effect">
+                            查看研究报告
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="flex-1">
+                        <i data-lucide="trending-up" class="w-12 h-12 mb-4 text-purple-600"></i>
+                        <h3 class="text-xl font-bold mb-3">策略指导</h3>
+                        <p class="text-gray-700 mb-4">基于研究成果提供的投资策略指导，帮助投资者构建适合自身风险偏好的投资组合。</p>
+                        <a href="#" class="text-purple-600 hover:underline flex items-center gap-1 blink-effect">
+                            获取策略建议
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="py-12 px-6 bg-white hidden">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-2xl font-bold mb-8 font-geist-mono text-center">关注我们</h2>
+                <div class="flex justify-center space-x-6 md:space-x-10">
+                    <a href="#" class="social-link" title="微信">
+                        <i data-lucide="message-circle" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                    <a href="#" class="social-link" title="微博">
+                        <i data-lucide="at-sign" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                    <a href="#" class="social-link" title="知乎">
+                        <i data-lucide="help-circle" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Twitter">
+                        <i data-lucide="twitter" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <i data-lucide="linkedin" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                    <a href="#" class="social-link" title="YouTube">
+                        <i data-lucide="youtube" class="w-6 h-6 md:w-8 md:h-8"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
